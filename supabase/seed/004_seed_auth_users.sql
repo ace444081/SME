@@ -17,9 +17,9 @@ ON CONFLICT (id) DO NOTHING;
 INSERT INTO auth.identities (
   id, user_id, identity_data, provider, provider_id, last_sign_in_at, created_at, updated_at
 ) VALUES
-  (gen_random_uuid()::text, '00000000-0000-0000-0000-000000000011', format('{"sub":"%s","email":"%s"}', '00000000-0000-0000-0000-000000000011', 'payroll@visualoptions.ph')::jsonb, 'email', '00000000-0000-0000-0000-000000000011', NOW(), NOW(), NOW()),
-  (gen_random_uuid()::text, '00000000-0000-0000-0000-000000000012', format('{"sub":"%s","email":"%s"}', '00000000-0000-0000-0000-000000000012', 'owner@visualoptions.ph')::jsonb, 'email', '00000000-0000-0000-0000-000000000012', NOW(), NOW(), NOW()),
-  (gen_random_uuid()::text, '00000000-0000-0000-0000-000000000013', format('{"sub":"%s","email":"%s"}', '00000000-0000-0000-0000-000000000013', 'admin@visualoptions.ph')::jsonb, 'email', '00000000-0000-0000-0000-000000000013', NOW(), NOW(), NOW())
+  (gen_random_uuid(), '00000000-0000-0000-0000-000000000011', format('{"sub":"%s","email":"%s"}', '00000000-0000-0000-0000-000000000011', 'payroll@visualoptions.ph')::jsonb, 'email', '00000000-0000-0000-0000-000000000011', NOW(), NOW(), NOW()),
+  (gen_random_uuid(), '00000000-0000-0000-0000-000000000012', format('{"sub":"%s","email":"%s"}', '00000000-0000-0000-0000-000000000012', 'owner@visualoptions.ph')::jsonb, 'email', '00000000-0000-0000-0000-000000000012', NOW(), NOW(), NOW()),
+  (gen_random_uuid(), '00000000-0000-0000-0000-000000000013', format('{"sub":"%s","email":"%s"}', '00000000-0000-0000-0000-000000000013', 'admin@visualoptions.ph')::jsonb, 'email', '00000000-0000-0000-0000-000000000013', NOW(), NOW(), NOW())
 ON CONFLICT DO NOTHING;
 
 -- 3. Link public.users auth_user_id to auth.users id
