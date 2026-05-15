@@ -55,7 +55,7 @@ INSERT INTO payroll_earning_lines (payroll_employee_result_id, earning_type_id, 
 VALUES ('00000000-0000-0000-0000-000000000041', (SELECT earning_type_id FROM earning_types WHERE earning_code = 'BASIC_PAY' LIMIT 1), 'Basic Pay', 9000.00);
 
 INSERT INTO payroll_deduction_lines (payroll_employee_result_id, deduction_type_id, description, amount)
-VALUES ('00000000-0000-0000-0000-000000000041', (SELECT deduction_type_id FROM deduction_types WHERE deduction_code = 'TAX' LIMIT 1), 'Withholding Tax', 1000.00);
+VALUES ('00000000-0000-0000-0000-000000000041', (SELECT deduction_type_id FROM deduction_types WHERE deduction_code = 'WITHHOLDING_TAX' LIMIT 1), 'Withholding Tax', 1000.00);
 
 -- Payslip for EMP-001
 INSERT INTO payslips (
