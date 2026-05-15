@@ -8,15 +8,14 @@
 -- We set both email_confirmed_at and confirmed_at, and omit instance_id so Supabase GoTrue defaults correctly.
 -- ON CONFLICT DO UPDATE ensures that if the rows already exist unconfirmed from a previous run, they get fully confirmed and updated with the password hash.
 INSERT INTO auth.users (
-  id, email, encrypted_password, email_confirmed_at, confirmed_at, raw_app_meta_data, raw_user_meta_data, created_at, updated_at, role, aud
+  id, email, encrypted_password, email_confirmed_at, raw_app_meta_data, raw_user_meta_data, created_at, updated_at, role, aud
 ) VALUES
-  ('00000000-0000-0000-0000-000000000011', 'payroll@visualoptions.ph', crypt('password123', gen_salt('bf')), NOW(), NOW(), '{"provider":"email","providers":["email"]}', '{"name":"Payroll Admin"}', NOW(), NOW(), 'authenticated', 'authenticated'),
-  ('00000000-0000-0000-0000-000000000012', 'owner@visualoptions.ph', crypt('password123', gen_salt('bf')), NOW(), NOW(), '{"provider":"email","providers":["email"]}', '{"name":"Owner Manager"}', NOW(), NOW(), 'authenticated', 'authenticated'),
-  ('00000000-0000-0000-0000-000000000013', 'admin@visualoptions.ph', crypt('password123', gen_salt('bf')), NOW(), NOW(), '{"provider":"email","providers":["email"]}', '{"name":"System Admin"}', NOW(), NOW(), 'authenticated', 'authenticated')
+  ('00000000-0000-0000-0000-000000000011', 'payroll@visualoptions.ph', crypt('password123', gen_salt('bf')), NOW(), '{"provider":"email","providers":["email"]}', '{"name":"Payroll Admin"}', NOW(), NOW(), 'authenticated', 'authenticated'),
+  ('00000000-0000-0000-0000-000000000012', 'owner@visualoptions.ph', crypt('password123', gen_salt('bf')), NOW(), '{"provider":"email","providers":["email"]}', '{"name":"Owner Manager"}', NOW(), NOW(), 'authenticated', 'authenticated'),
+  ('00000000-0000-0000-0000-000000000013', 'admin@visualoptions.ph', crypt('password123', gen_salt('bf')), NOW(), '{"provider":"email","providers":["email"]}', '{"name":"System Admin"}', NOW(), NOW(), 'authenticated', 'authenticated')
 ON CONFLICT (id) DO UPDATE SET
   encrypted_password = EXCLUDED.encrypted_password,
   email_confirmed_at = EXCLUDED.email_confirmed_at,
-  confirmed_at = EXCLUDED.confirmed_at,
   raw_app_meta_data = EXCLUDED.raw_app_meta_data,
   role = EXCLUDED.role,
   aud = EXCLUDED.aud;
