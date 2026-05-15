@@ -1,23 +1,21 @@
+import React from "react";
 import { PageHeader, Card, StatusBadge, getStatusVariant, EmptyState } from "@/components/ui/shared";
 import Link from "next/link";
+import { getEmployees } from "@/features/employees/actions";
 
-// Demo data for development without Supabase
-const demoEmployees = [
-  { employee_id: "1", employee_no: "EMP-001", first_name: "Juan", last_name: "Cruz", departments: { department_name: "Administration" }, job_positions: { position_title: "Office Staff" }, employment_statuses: { status_code: "ACTIVE", status_name: "Active" }, hire_date: "2023-01-15" },
-  { employee_id: "2", employee_no: "EMP-002", first_name: "Maria", last_name: "Garcia", departments: { department_name: "Fabrication" }, job_positions: { position_title: "Welder" }, employment_statuses: { status_code: "ACTIVE", status_name: "Active" }, hire_date: "2023-03-01" },
-  { employee_id: "3", employee_no: "EMP-003", first_name: "Pedro", last_name: "Reyes", departments: { department_name: "Fabrication" }, job_positions: { position_title: "Laborer" }, employment_statuses: { status_code: "ACTIVE", status_name: "Active" }, hire_date: "2024-01-10" },
-  { employee_id: "4", employee_no: "EMP-004", first_name: "Ana", last_name: "Mendoza", departments: { department_name: "Engineering" }, job_positions: { position_title: "Project Engineer" }, employment_statuses: { status_code: "ACTIVE", status_name: "Active" }, hire_date: "2022-06-15" },
-  { employee_id: "5", employee_no: "EMP-005", first_name: "Carlos", last_name: "Tan", departments: { department_name: "Fabrication" }, job_positions: { position_title: "Driver" }, employment_statuses: { status_code: "ACTIVE", status_name: "Active" }, hire_date: "2025-01-02" },
-];
+export const metadata = {
+  title: "Employee Records | SME-Pay",
+  description: "Manage employee information, rates, and government IDs",
+};
 
-export default function EmployeesPage() {
-  const employees = demoEmployees;
+export default async function EmployeesPage() {
+  const employees = await getEmployees().catch(() => []);
 
   return (
-    <div className="animate-fade-in">
+    <div className="animate-fade-in max-w-7xl mx-auto">
       <PageHeader
         title="Employee Records"
-        description="Manage employee information, rates, and government IDs"
+        description="Manage employee master files, salary rates, and statutory identification numbers"
         actions={
           <Link
             href="/employees/new"
@@ -31,35 +29,35 @@ export default function EmployeesPage() {
 
       <Card padding={false}>
         {employees.length === 0 ? (
-          <EmptyState icon="👥" title="No employees yet" description="Add your first employee to get started" />
+          <EmptyState icon="👥" title="No employees found" description="Add your first employee record to get started" />
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr style={{ borderBottom: "1px solid var(--color-neutral-200)" }}>
+                <tr style={{ borderBottom: "1px solid var(--color-neutral-200)", background: "var(--color-neutral-50)" }}>
                   {["Employee No", "Name", "Department", "Position", "Status", "Hire Date", ""].map((h) => (
-                    <th key={h} className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wide" style={{ color: "var(--color-neutral-500)" }}>
+                    <th key={h} className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-[var(--color-neutral-500)]">
                       {h}
                     </th>
                   ))}
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="divide-y divide-[var(--color-neutral-100)]">
                 {employees.map((emp) => (
-                  <tr key={emp.employee_id} className="hover:bg-[var(--color-neutral-50)] transition-colors" style={{ borderBottom: "1px solid var(--color-neutral-100)" }}>
-                    <td className="px-5 py-3.5 text-sm font-mono font-medium" style={{ color: "var(--color-primary-600)" }}>{emp.employee_no}</td>
-                    <td className="px-5 py-3.5 text-sm font-medium" style={{ color: "var(--color-neutral-900)" }}>
+                  <tr key={emp.employee_id} className="hover:bg-[var(--color-neutral-50)] transition-colors">
+                    <td className="px-6 py-4 text-sm font-mono font-bold text-[var(--color-primary-600)]">{emp.employee_no}</td>
+                    <td className="px-6 py-4 text-sm font-bold text-[var(--color-neutral-900)]">
                       {emp.first_name} {emp.last_name}
                     </td>
-                    <td className="px-5 py-3.5 text-sm" style={{ color: "var(--color-neutral-600)" }}>{emp.departments?.department_name ?? "—"}</td>
-                    <td className="px-5 py-3.5 text-sm" style={{ color: "var(--color-neutral-600)" }}>{emp.job_positions?.position_title ?? "—"}</td>
-                    <td className="px-5 py-3.5">
-                      <StatusBadge status={emp.employment_statuses?.status_name ?? "Unknown"} variant={getStatusVariant(emp.employment_statuses?.status_code ?? "")} />
+                    <td className="px-6 py-4 text-sm text-[var(--color-neutral-600)]">{emp.departments?.department_name ?? "—"}</td>
+                    <td className="px-6 py-4 text-sm text-[var(--color-neutral-600)]">{emp.job_positions?.position_title ?? "—"}</td>
+                    <td className="px-6 py-4">
+                      <StatusBadge status={emp.employment_statuses?.status_name ?? "Active"} variant={getStatusVariant(emp.employment_statuses?.status_code ?? "ACTIVE")} />
                     </td>
-                    <td className="px-5 py-3.5 text-sm" style={{ color: "var(--color-neutral-600)" }}>{emp.hire_date}</td>
-                    <td className="px-5 py-3.5 text-right">
-                      <Link href={`/employees/${emp.employee_id}`} className="text-xs font-medium" style={{ color: "var(--color-primary-600)" }}>
-                        View →
+                    <td className="px-6 py-4 text-sm text-[var(--color-neutral-600)]">{emp.hire_date}</td>
+                    <td className="px-6 py-4 text-right">
+                      <Link href={`/employees/${emp.employee_id}`} className="text-xs font-bold text-[var(--color-primary-600)] hover:underline">
+                        View Profile →
                       </Link>
                     </td>
                   </tr>
