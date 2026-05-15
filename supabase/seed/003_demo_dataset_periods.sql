@@ -19,27 +19,43 @@ INSERT INTO payroll_periods (
 
 -- Finalized Payroll Run
 INSERT INTO payroll_runs (
-  payroll_run_id, payroll_period_id, run_date, run_status,
-  computed_by_user_id, finalized_by_user_id, finalized_at
+  payroll_run_id, payroll_period_id, run_number, run_status,
+  computed_by_user_id
 ) VALUES (
   '00000000-0000-0000-0000-000000000061',
   '00000000-0000-0000-0000-000000000051',
-  '2026-04-28', 'FINALIZED',
-  '00000000-0000-0000-0000-000000000011',
-  '00000000-0000-0000-0000-000000000012',
-  '2026-04-29 10:00:00+00'
+  1, 'FINALIZED',
+  '00000000-0000-0000-0000-000000000011'
+);
+
+-- Attendance Input for Finalized Run
+INSERT INTO attendance_payroll_inputs (
+  input_id, payroll_period_id, employee_id, days_worked, regular_hours_worked,
+  absence_days, overtime_hours, rest_day_hours, holiday_hours
+) VALUES (
+  '00000000-0000-0000-0000-000000000081',
+  '00000000-0000-0000-0000-000000000051',
+  '00000000-0000-0000-0000-000000000041',
+  11, 88, 0, 0, 0, 0
 );
 
 -- Finalized Employee Result for EMP-001
 INSERT INTO payroll_employee_results (
-  payroll_employee_result_id, payroll_run_id, employee_id,
-  gross_pay, total_deductions, net_pay, is_manual_override
+  payroll_employee_result_id, payroll_run_id, employee_id, attendance_input_id, rate_history_id
 ) VALUES (
-  '00000000-0000-0000-0000-000000000041', -- matches employee id for simplicity in demo
+  '00000000-0000-0000-0000-000000000041',
   '00000000-0000-0000-0000-000000000061',
   '00000000-0000-0000-0000-000000000041',
-  9000.00, 1000.00, 8000.00, FALSE
+  '00000000-0000-0000-0000-000000000081',
+  (SELECT rate_history_id FROM employee_rate_history WHERE employee_id = '00000000-0000-0000-0000-000000000041' LIMIT 1)
 );
+
+-- Lines for EMP-001 to mock totals
+INSERT INTO payroll_earning_lines (payroll_employee_result_id, earning_type_id, description, amount)
+VALUES ('00000000-0000-0000-0000-000000000041', (SELECT earning_type_id FROM earning_types WHERE is_basic_pay = TRUE LIMIT 1), 'Basic Pay', 9000.00);
+
+INSERT INTO payroll_deduction_lines (payroll_employee_result_id, deduction_type_id, description, amount)
+VALUES ('00000000-0000-0000-0000-000000000041', (SELECT deduction_type_id FROM deduction_types WHERE type_code = 'TAX' LIMIT 1), 'Withholding Tax', 1000.00);
 
 -- Payslip for EMP-001
 INSERT INTO payslips (
@@ -88,12 +104,12 @@ INSERT INTO payroll_periods (
 );
 
 INSERT INTO payroll_runs (
-  payroll_run_id, payroll_period_id, run_date, run_status,
-  computed_by_user_id, reviewer_notes
+  payroll_run_id, payroll_period_id, run_number, run_status,
+  computed_by_user_id, remarks
 ) VALUES (
   '00000000-0000-0000-0000-000000000063',
   '00000000-0000-0000-0000-000000000053',
-  '2026-05-28', 'RETURNED',
+  1, 'RETURNED',
   '00000000-0000-0000-0000-000000000011',
   'Missing overtime hours for EMP-004. Please correct and re-submit.'
 );
