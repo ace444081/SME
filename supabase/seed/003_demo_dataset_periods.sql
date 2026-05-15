@@ -30,13 +30,13 @@ INSERT INTO payroll_runs (
 
 -- Attendance Input for Finalized Run
 INSERT INTO attendance_payroll_inputs (
-  input_id, payroll_period_id, employee_id, days_worked, regular_hours_worked,
-  absence_days, overtime_hours, rest_day_hours, holiday_hours
+  attendance_input_id, payroll_period_id, employee_id, days_worked, regular_hours_worked,
+  absence_days, late_minutes, undertime_minutes, overtime_hours, rest_day_overtime_hours, holiday_overtime_hours, encoded_by_user_id
 ) VALUES (
   '00000000-0000-0000-0000-000000000081',
   '00000000-0000-0000-0000-000000000051',
   '00000000-0000-0000-0000-000000000041',
-  11, 88, 0, 0, 0, 0
+  11, 88, 0, 0, 0, 0, 0, 0, '00000000-0000-0000-0000-000000000011'
 );
 
 -- Finalized Employee Result for EMP-001
@@ -82,12 +82,12 @@ INSERT INTO payroll_periods (
 
 -- Attendance for Open Period
 INSERT INTO attendance_payroll_inputs (
-  input_id, payroll_period_id, employee_id, days_worked, regular_hours_worked,
-  absence_days, overtime_hours, rest_day_hours, holiday_hours
+  attendance_input_id, payroll_period_id, employee_id, days_worked, regular_hours_worked,
+  absence_days, late_minutes, undertime_minutes, overtime_hours, rest_day_overtime_hours, holiday_overtime_hours, encoded_by_user_id
 ) VALUES
-  (gen_random_uuid(), '00000000-0000-0000-0000-000000000052', '00000000-0000-0000-0000-000000000041', 11, 88, 0, 0, 0, 0),
-  (gen_random_uuid(), '00000000-0000-0000-0000-000000000052', '00000000-0000-0000-0000-000000000042', 10, 80, 1, 0, 0, 0),
-  (gen_random_uuid(), '00000000-0000-0000-0000-000000000052', '00000000-0000-0000-0000-000000000044', 11, 88, 0, 10, 8, 0);
+  (gen_random_uuid(), '00000000-0000-0000-0000-000000000052', '00000000-0000-0000-0000-000000000041', 11, 88, 0, 0, 0, 0, 0, 0, '00000000-0000-0000-0000-000000000011'),
+  (gen_random_uuid(), '00000000-0000-0000-0000-000000000052', '00000000-0000-0000-0000-000000000042', 10, 80, 1, 0, 0, 0, 0, 0, '00000000-0000-0000-0000-000000000011'),
+  (gen_random_uuid(), '00000000-0000-0000-0000-000000000052', '00000000-0000-0000-0000-000000000044', 11, 88, 0, 0, 0, 10, 8, 0, '00000000-0000-0000-0000-000000000011');
 
 -- ─── 3. Returned Payroll Scenario ──────────────────────────────────────────
 INSERT INTO payroll_periods (
