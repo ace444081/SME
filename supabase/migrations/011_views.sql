@@ -5,7 +5,7 @@
 
 -- ─── v_employee_current_rate ────────────────────────────────────────────────
 -- Shows the current active salary/rate per employee (effective_to IS NULL)
-CREATE OR REPLACE VIEW v_employee_current_rate AS
+CREATE OR REPLACE VIEW v_employee_current_rate WITH (security_invoker = true) AS
 SELECT
   erh.employee_id,
   erh.rate_history_id,
@@ -19,7 +19,7 @@ WHERE erh.effective_to IS NULL;
 -- ─── v_payroll_employee_totals ──────────────────────────────────────────────
 -- Computes gross pay, total deductions, employer contributions, and net pay
 -- from the payroll line tables. No totals are stored in base tables.
-CREATE OR REPLACE VIEW v_payroll_employee_totals AS
+CREATE OR REPLACE VIEW v_payroll_employee_totals WITH (security_invoker = true) AS
 SELECT
   per.payroll_employee_result_id,
   per.payroll_run_id,
@@ -48,7 +48,7 @@ LEFT JOIN (
 
 -- ─── v_payroll_period_summary ───────────────────────────────────────────────
 -- Summarizes payroll by period and run
-CREATE OR REPLACE VIEW v_payroll_period_summary AS
+CREATE OR REPLACE VIEW v_payroll_period_summary WITH (security_invoker = true) AS
 SELECT
   pp.payroll_period_id,
   pp.period_code,
@@ -77,7 +77,7 @@ GROUP BY
 
 -- ─── v_incomplete_employee_records ──────────────────────────────────────────
 -- Flags employees missing current rate or required government IDs
-CREATE OR REPLACE VIEW v_incomplete_employee_records AS
+CREATE OR REPLACE VIEW v_incomplete_employee_records WITH (security_invoker = true) AS
 SELECT
   e.employee_id,
   e.employee_no,
@@ -121,7 +121,7 @@ LEFT JOIN v_employee_current_rate cr
 -- ─── v_contribution_bracket_totals ──────────────────────────────────────────
 -- Computes total contribution (employee + employer) per bracket row.
 -- Replaces the removed total_fixed_amount column (DB-03 fix).
-CREATE OR REPLACE VIEW v_contribution_bracket_totals AS
+CREATE OR REPLACE VIEW v_contribution_bracket_totals WITH (security_invoker = true) AS
 SELECT
   scb.contribution_bracket_id,
   scb.reference_set_id,
