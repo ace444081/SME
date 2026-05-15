@@ -1278,12 +1278,12 @@ Create test records:
 
 ### 17.4 Input Validation
 
-- [ ] Zod schemas for all forms.
-- [ ] Server-side validation duplicated from client-side validation.
-- [ ] Numeric values use decimal handling.
-- [ ] Money values never use floating-point in database.
-- [ ] Status values restricted.
-- [ ] Date range validation enforced.
+- [x] Zod schemas for all forms.
+- [x] Server-side validation duplicated from client-side validation.
+- [x] Numeric values use decimal handling.
+- [x] Money values never use floating-point in database.
+- [x] Status values restricted.
+- [x] Date range validation enforced.
 
 ---
 
@@ -1291,52 +1291,52 @@ Create test records:
 
 ### 18.1 Vercel Setup
 
-- [ ] Connect GitHub repo to Vercel.
-- [ ] Set production branch to `main`.
-- [ ] Add environment variables:
+- [x] Connect GitHub repo to Vercel.
+- [x] Set production branch to `main`.
+- [x] Add environment variables:
   - `NEXT_PUBLIC_SUPABASE_URL`
   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
   - `SUPABASE_SERVICE_ROLE_KEY`
   - optional export/storage keys
-- [ ] Configure build command:
+- [x] Configure build command:
 
 ```bash
 npm run build
 ```
 
-- [ ] Configure install command:
+- [x] Configure install command:
 
 ```bash
 npm install
 ```
 
-- [ ] Deploy preview branch.
-- [ ] Run smoke tests on preview URL.
-- [ ] Deploy production only after smoke test passes.
+- [x] Deploy preview branch.
+- [x] Run smoke tests on preview URL.
+- [x] Deploy production only after smoke test passes.
 
 ### 18.2 Supabase Setup
 
-- [ ] Create Supabase project.
-- [ ] Apply migrations.
-- [ ] Apply seed data.
-- [ ] Enable RLS.
-- [ ] Create storage bucket for payslips/reports if needed.
-- [ ] Configure policies for storage access.
-- [ ] Create backup/export plan.
+- [x] Create Supabase project.
+- [x] Apply migrations.
+- [x] Apply seed data.
+- [x] Enable RLS.
+- [x] Create storage bucket for payslips/reports if needed.
+- [x] Configure policies for storage access.
+- [x] Create backup/export plan.
 
 ### 18.3 Production Smoke Test
 
-- [ ] Login works.
-- [ ] Dashboard loads.
-- [ ] Employee list loads.
-- [ ] Payroll period list loads.
-- [ ] Attendance input saves.
-- [ ] Payroll computation works.
-- [ ] Payroll review works.
-- [ ] Finalization locks records.
-- [ ] Payslip generates.
-- [ ] Report exports.
-- [ ] Audit log records actions.
+- [x] Login works.
+- [x] Dashboard loads.
+- [x] Employee list loads.
+- [x] Payroll period list loads.
+- [x] Attendance input saves.
+- [x] Payroll computation works.
+- [x] Payroll review works.
+- [x] Finalization locks records.
+- [x] Payslip generates.
+- [x] Report exports.
+- [x] Audit log records actions.
 
 ---
 
@@ -1550,22 +1550,22 @@ This demonstrates the approved system purpose without needing employee portal, e
 
 The prototype is complete enough when:
 
-- [ ] A user can log in by role.
-- [ ] Payroll Admin can manage employees.
-- [ ] Payroll Admin can create a payroll period.
-- [ ] Payroll Admin can encode attendance and adjustments.
-- [ ] Payroll Admin can compute payroll.
-- [ ] The system shows gross pay, deductions, employer contributions, and net pay.
-- [ ] Payroll Admin can submit payroll for review.
-- [ ] Owner/Manager can approve/finalize payroll.
-- [ ] Finalized payroll cannot be edited.
-- [ ] Payroll Admin can generate payslips.
-- [ ] Payroll Admin/Owner can generate payroll summary reports.
-- [ ] Owner/System Admin can view audit logs.
-- [ ] Demo seed data exists.
-- [ ] App deploys to Vercel.
-- [ ] README explains setup and limitations.
-- [ ] Screenshots and test cases are ready for thesis documentation.
+- [x] A user can log in by role.
+- [x] Payroll Admin can manage employees.
+- [x] Payroll Admin can create a payroll period.
+- [x] Payroll Admin can encode attendance and adjustments.
+- [x] Payroll Admin can compute payroll.
+- [x] The system shows gross pay, deductions, employer contributions, and net pay.
+- [x] Payroll Admin can submit payroll for review.
+- [x] Owner/Manager can approve/finalize payroll.
+- [x] Finalized payroll cannot be edited.
+- [x] Payroll Admin can generate payslips.
+- [x] Payroll Admin/Owner can generate payroll summary reports.
+- [x] Owner/System Admin can view audit logs.
+- [x] Demo seed data exists.
+- [x] App deploys to Vercel.
+- [x] README explains setup and limitations.
+- [x] Screenshots and test cases are ready for thesis documentation.
 
 ---
 
