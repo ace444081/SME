@@ -14,7 +14,7 @@ INSERT INTO payroll_periods (
   (SELECT frequency_id FROM payroll_frequencies WHERE frequency_code = 'SEMI_MONTHLY'),
   '2026-04-B', 'April 2nd Cut-off 2026',
   '2026-04-16', '2026-04-30', '2026-04-11', '2026-04-25',
-  '2026-04-30', 'FINALIZED', '00000000-0000-0000-0000-000000000011'
+  '2026-04-30', 'OPEN', '00000000-0000-0000-0000-000000000011'
 );
 
 -- Finalized Payroll Run
@@ -65,6 +65,9 @@ INSERT INTO payslips (
   '00000000-0000-0000-0000-000000000041',
   '2026-04-30', NULL, FALSE
 );
+
+-- Finalize the period and run to lock it (proving our triggers work!)
+UPDATE payroll_periods SET period_status = 'FINALIZED' WHERE payroll_period_id = '00000000-0000-0000-0000-000000000051';
 
 -- ─── 2. Open Payroll Period ────────────────────────────────────────────────
 INSERT INTO payroll_periods (
