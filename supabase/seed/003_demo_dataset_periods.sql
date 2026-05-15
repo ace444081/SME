@@ -59,11 +59,11 @@ VALUES ('00000000-0000-0000-0000-000000000041', (SELECT deduction_type_id FROM d
 
 -- Payslip for EMP-001
 INSERT INTO payslips (
-  payslip_id, payroll_employee_result_id, generated_date, document_url, is_viewed_by_employee
+  payslip_id, payroll_employee_result_id, payslip_no, generated_by_user_id
 ) VALUES (
   '00000000-0000-0000-0000-000000000071',
   '00000000-0000-0000-0000-000000000041',
-  '2026-04-30', NULL, FALSE
+  'PS-2026-04-001', '00000000-0000-0000-0000-000000000011'
 );
 
 -- Finalize the period and run to lock it (proving our triggers work!)
